@@ -93,16 +93,19 @@ public class Main {
 
     }
 
-    static int[] task2(int[] array, int sumValue){
+  static int[] task2(int[] array, int sumValue){
 
         if(array == null){
             return new int[]{-1, -1};
         }
 
+        Map<Integer, Integer> complements = new HashMap<>();
         for(int i = 0; i < array.length; i++){
-            for(int j = i + 1; j < array.length; j++){
-                if(array[i] + array[j] == sumValue) return new int[]{array[i], array[j]};
+            Integer complementIndex = complements.get(array[i]);
+            if(complementIndex != null){
+                return new int[]{ array[complementIndex], array[i]};
             }
+            complements.put(sumValue - array[i], i);
         }
         return new int[]{-1, -1}; // incorrect value case
     }
